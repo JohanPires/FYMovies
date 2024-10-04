@@ -1,0 +1,16 @@
+@font-face {
+    font-family: "font1";
+    src: url(../fonts/REM-VariableFont_wght.ttf);
+}
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body{
+   background: black; 
+   min-height: 100vh;
+   font-family: "font1";
+}

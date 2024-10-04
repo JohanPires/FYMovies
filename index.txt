@@ -1,0 +1,317 @@
+.header-container{
+    margin-bottom: 30px;
+    nav{
+        ul{
+            list-style: none;
+            display: flex;
+
+
+             li{
+                margin-top: 20px;
+                border-radius: 50px;
+                transition: 0.2s;
+
+                
+                a{
+                    text-decoration: none;
+                    color: white;
+                    border-radius: 50px;
+                    padding: 10px 15px;
+                    &:hover{
+                       background: rgb(8,13,45);
+                    }
+
+                
+                 }
+            }
+        }
+    }
+ 
+    h1{
+        color: white;
+        text-align: center;
+        text-shadow: 3px 2px 3px rgb(83, 112, 231);;
+    }
+
+   .active{
+    background:rgb(83,112,231) ;
+   } 
+
+}
+
+
+//---------------------------------------
+
+.main-container{
+    
+    .search-container{
+        text-align: center;
+
+        .form-container{
+            display: flex;
+            flex-direction: column;
+            max-width:300px ;
+            margin: 0 auto 10px;
+
+            label{
+                color: rgb(47,79,79);
+            }
+            
+            input{
+                height: 40px;
+                font-family: "font1";
+            }
+
+            input[type=text]{
+                border-radius: 15px 15px 0 0;
+                border: solid 1px rgb(8,13,45);
+                text-align: center;
+            }
+            input[type=submit]{
+                border-radius: 0 0 15px 15px;
+                background: rgb(83, 112, 231);
+                color: white ;
+
+                &:hover{
+                    background: rgb(8,13,45);
+                }
+            }
+
+
+        }
+
+        .button-container{
+            button{
+                width: 150px;
+                background: rgb(83, 112, 231);
+                height: 30px;
+                border: solid 1px rgb(83, 112, 231);
+                color: white;
+                transition: 0.2s;
+
+                &:hover{
+                    background:rgb(8,13,45) ;
+                    border: rgb(8,13,45);
+                }
+            }
+
+            #top{
+                border-radius: 20px 0 0 20px;
+            }
+            #flop{
+                border-radius: 0 20px 20px 0; 
+            }
+        }
+
+
+    }
+
+}
+.card-container{
+display: flex;
+justify-content: center;
+    flex-wrap: wrap;
+    margin: 10px auto 0;
+    
+}
+
+//----------------------------------------
+
+.card{
+    width: 350px;
+    height: 700px;
+    padding: 25px;
+    background: rgb(75 79 107);
+    margin: 5px;
+    border-radius: 20px;
+    color: white;
+    position: relative;
+    z-index: 0;
+    box-shadow: 6px 4px 12px 0 #0000007d;
+    
+
+    img{
+        display: block;
+        margin: 0 auto 10px;
+        width: 80%;
+        height: 50%;
+        border-radius: 80px;
+        box-shadow: -13px 12px 14px 0px rgb(34 32 66 / 41%);
+    }
+
+    h3{
+        font-size: 1rem;
+        margin-bottom: 10px;
+    }
+    p{
+        font-size: 0.9rem;
+        margin-bottom: 10px;
+        color: rgb(172, 172, 172);
+    }
+
+    ul{
+        display: flex;
+        flex-wrap: wrap;
+        li{
+            font-size: 0.8rem;
+            list-style: none;
+            padding: 7px;
+            margin: 5px;
+            background:rgb(34,32,66) ;
+            border-radius: 10px;
+        }
+    }
+
+    p{
+        display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 5;
+            overflow: hidden;
+    }
+
+    button{
+        position: absolute;
+        
+        border: solid 1px rgb(83, 112, 231);
+        border-radius: 10px;
+        background: rgb(83, 112, 231);
+        color: white;
+        transition: 0.2s;
+
+        &:hover{
+            box-shadow: -3px 2px 5px 0 #ffffff40;
+            transform: translate(2px, -2px);
+        }
+    }
+
+    #coupDeCoeur{
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: 5px;
+        padding: 10px;
+
+        &:hover{
+            transform: translateX(-49%)
+        }
+    }
+
+    #more{
+        right: 10px;
+        top: 10px;
+        padding: 5px 10px;
+        font-size: 1.5rem;
+    }
+
+
+}
+
+//----------------
+
+return (
+    <div className={moreDetail ? "more-detail" : "card"}>
+      <img
+        src={
+          film.poster_path
+            ? "https://image.tmdb.org/t/p/original/" + film.poster_path
+            : "./img/poster.jpg"
+        }
+        alt={"photo de " + film.title}
+      />
+      <div className="info">
+        <h3>{film.title}</h3>
+        <p>
+          {film.release_date
+            ? "Sortie le : " + dateParser(film.release_date)
+            : null}
+        </p>
+        <h3>{film.vote_average.toFixed(1)}/10</h3>
+
+        <ul>
+          {film.genre_ids
+            ? idToGenre()
+            : film.genres.map((genre) => <li key={genre}>{genre.name}</li>)}
+        </ul>
+        <h3>Synopsis</h3>
+        <p>{film.overview}</p>
+
+        {film.genre_ids ? (
+          <button id="coupDeCoeur" onClick={() => stockLocal()}>
+            <i className="fa-regular fa-heart"></i>
+          </button>
+        ) : (
+          <button
+            id="coupDeCoeur"
+            onClick={() => {
+              deleteLike();
+              window.location.reload();
+            }}
+          >
+            Supprimer de la liste
+          </button>
+        )}
+
+        {moreDetail ? (
+          <button id="more" onClick={() => setMoreDetail(false)}>
+            -
+          </button>
+        ) : (
+          <button id="more" onClick={() => setMoreDetail(true)}>
+            +
+          </button>
+        )}
+      </div>
+    </div>
+  );
+
+
+  // ------------------------------------
+  .more-infos{
+    position: relative;
+
+    #close{
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+    .backdrop{
+        z-index: 10;
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 100vw;
+        backdrop-filter: blur(2px);
+
+        .infos-container{
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-50%);
+            background: rgb(47,79,79, 0.800);
+            padding: 40px;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            box-shadow: 2px 4px 11px 0 #02020278;
+            border-radius: 100px;
+    
+    
+            h1{
+        
+                color: white;
+                font-size: 5rem;
+                
+            }
+    
+            ul{
+                list-style: none;
+    
+            }
+    
+            button{
+                z-index: 1000;
+            }
+        }
+    }
+}
+
+https://64f1e720c38df270541b3b1a--dainty-klepon-aa4000.netlify.app/

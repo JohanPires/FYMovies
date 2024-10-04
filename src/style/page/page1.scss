@@ -1,0 +1,18 @@
+.page-container{
+    h2{
+        text-align: center;
+        color: white;
+        margin-bottom: 30px;
+
+        i{
+            color: rgb(47,79,79);
+        }
+    }
+
+    .card-container2{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+}
